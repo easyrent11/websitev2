@@ -362,7 +362,6 @@ async function addCar(db, carData) {
     Renter_Id,
     image_url,
   } = carData;
-  console.log("car DAta ====   ", carData);
   try {
     // Check if the manufacturer exists
     const manufacturerExists = await checkManufacturerExists(

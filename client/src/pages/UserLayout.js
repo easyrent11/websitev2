@@ -8,7 +8,7 @@ export default function UserLayout({ setIsLoggedIn }) {
   return (
     <>
       <UserHeader setIsLoggedIn={setIsLoggedIn} setOpenAddCar={setOpenAddCar} />
-      {openAddCar && <AddCar />}
+      {openAddCar && <AddCar setOpenAddCar={setOpenAddCar} />}
       <main className={styles.main}>Hello world</main>
     </>
   );

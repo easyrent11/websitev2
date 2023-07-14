@@ -2,15 +2,9 @@ const multer = require("multer");
 const path = require("path");
 const express = require("express");
 const router = express.Router();
+const fs = require('fs');
 
-//Multer for uploading the car images.
-const upload = multer({
-  dest: path.join(__dirname, "../images"),
-}).array("carpics", 20);
-
-
-
-router.post("/uploadImages",upload, (req, res) => {
+router.post("/uploadImages", (req, res) => {
   upload(req, res, function (err) {
     if (err instanceof multer.MulterError) {
       // A Multer error occurred during file upload
@@ -36,4 +30,12 @@ router.post("/uploadImages",upload, (req, res) => {
     return res.json({ message: "Success", files: fileUrls });
   });
 });
+
+//Multer for uploading the car images.
+const upload = multer({
+  dest: path.join(__dirname, "../images"),
+}).array("carpics", 20);
+
+
+
 module.exports = router;

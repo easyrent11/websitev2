@@ -6,7 +6,14 @@ import { CarMakesAndModels } from "../../res/CarMakesAndModels";
 import Select from "react-select";
 import styles from "./addcar.module.css";
 
-export default function AddCar() {
+export default function AddCar({setOpenAddCar}) {
+
+  // exist the add car component by changing the useState variable.
+  const toggleVisibility = () => {
+    setOpenAddCar(false);
+  }
+
+  //styling for the add car button.
   const btnStyle = {
     backgroundColor: "#cc6200",
     color: "#ffffff",
@@ -20,6 +27,7 @@ export default function AddCar() {
   // getting the user ID
   const userId = localStorage.getItem("userId");
 
+  // resorting the list of cars.
   const sortedManufacturers = CarMakesAndModels.map((make) => ({
     value: make.brand,
     label: make.brand,
@@ -89,7 +97,6 @@ export default function AddCar() {
     for (let i = 0; i < files.length; i++) {
       formData.append("carpics", files[i]);
     }
-
     return axios.post("http://localhost:3001/cars/uploadImages", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -108,8 +115,9 @@ export default function AddCar() {
 
     uploadImages(uploadedImages)
       .then((response) => {
-        console.log("respense ===    " , response);
+        console.log("we got here...");
         const { files } = response.data;
+        console.log(files);
         const filenames = files.map((url) => {
           const pathname = new URL(url).pathname;
           return pathname.substring(pathname.lastIndexOf("/") + 1);
@@ -152,6 +160,13 @@ export default function AddCar() {
 
   return (
     <div className={styles.addCarContainer}>
+      <button
+        type="button"
+        className={styles.closeButtonStyle}
+        onClick={toggleVisibility} // Call the toggleVisibility function to close the component
+      >
+        X
+      </button>
       <h2 className={styles.title}>Add Car</h2>
 
       <form className={styles.form}>

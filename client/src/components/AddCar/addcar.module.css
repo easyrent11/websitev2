@@ -8,6 +8,32 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
   border-radius: 0.5rem;
+  position: fixed; /* Change to fixed positioning */
+  top: 50%; /* Position at the center of the screen vertically */
+  left: 50%; /* Position at the center of the screen horizontally */
+  transform: translate(-50%, -50%); /* Center the component using negative translate */
+  z-index: 999; /* Set a higher z-index to ensure it appears on top of other elements */
+  opacity: 1; /* Start with 0 opacity */
+  transition: opacity 0.3s ease; /* Add a transition for opacity */
+}
+
+
+.closeButtonStyle {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 5px;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
 }
 
 .title {
