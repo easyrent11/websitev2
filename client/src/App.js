@@ -17,6 +17,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [notFound, setNotFound] = useState(false);
 
+
   const [carList, setCarList] = useState([]);
   const [allCars, setAllCars] = useState([]);
 
@@ -45,15 +46,6 @@ function App() {
     <>
       <SearchCarListResult.Provider value={{ carList, updateCarList }}>
         <AllCarsContext.Provider value={{ allCars, setAllCars }}>
-          {isLoggedIn ? (
-            <UserHeader handleLogout={handleLogout} />
-          ) : (
-            <Header
-              openLogin={openLogin}
-              openRegister={openRegister}
-              isLoggedIn={isLoggedIn}
-            />
-          )}
           {isLoggedIn ? (
             <UserLayout handleLogout={handleLogout} />
           ) : (

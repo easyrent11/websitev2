@@ -1,9 +1,11 @@
-import React from 'react'
+import React , {useState,useEffect} from 'react'
 import Logo from "../Logo/Logo"
 import classes from './header.module.css';
 import Button from '../Button/Button';
 
 export default function Header({ openLogin, openRegister }) {
+
+
   const btnStyle1 = {
     margin:'1rem',
     borderRadius:'5px',
