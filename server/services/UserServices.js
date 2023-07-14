@@ -184,7 +184,241 @@ async function loginUser(db, email, password) {
 #####################################################################
 */
 
+
+// ########################################################################################
+// #                                ADD CAR SERVICE FUNCTIONS                             #
+// ########################################################################################
+
+// Function to check if a manufacturer exists
+function checkManufacturerExists(db, manufacturerCode) {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "SELECT * FROM car_manufacturer WHERE Manufacturer_Code = ?",
+      [manufacturerCode],
+      (error, results) => {
+        if (error) {
+          console.error("Error checking manufacturer:", error);
+          reject("Failed to add car");
+        } else {
+          resolve(results.length > 0);
+        }
+      }
+    );
+  });
+}
+
+// Function to insert a manufacturer
+function insertManufacturer(db, manufacturerCode, manufacturerName) {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "INSERT INTO car_manufacturer (Manufacturer_Code, Manufacturer_Name) VALUES (?, ?)",
+      [manufacturerCode, manufacturerName],
+      (error) => {
+        if (error) {
+          console.error("Error adding manufacturer:", error);
+          reject("Failed to add car");
+        } else {
+          resolve();
+        }
+      }
+    );
+  });
+}
+
+// Function to check if a model exists
+function checkModelExists(db, modelCode) {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "SELECT * FROM car_models WHERE model_code = ?",
+      [modelCode],
+      (error, results) => {
+        if (error) {
+          console.error("Error checking model:", error);
+          reject("Failed to add car");
+        } else {
+          resolve(results.length > 0);
+        }
+      }
+    );
+  });
+}
+
+// Function to insert a model
+function insertModel(db, modelCode, modelName, manufacturerCode) {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "INSERT INTO car_models (model_code, model_name, Manufacturer_code) VALUES (?, ?, ?)",
+      [modelCode, modelName, manufacturerCode],
+      (error) => {
+        if (error) {
+          console.error("Error adding model:", error);
+          reject("Failed to add car");
+        } else {
+          resolve();
+        }
+      }
+    );
+  });
+}
+
+// Function to check if a user exists
+function checkUserExists(db, renterId) {
+  return new Promise((resolve, reject) => {
+    db.query("SELECT id FROM users WHERE id = ?", [renterId], (error, results) => {
+      if (error) {
+        console.error("Error checking user:", error);
+        reject("Failed to add car");
+      } else {
+        resolve(results.length > 0);
+      }
+    });
+  });
+}
+
+// Function to insert a car
+function insertCar(
+  db,
+  manufacturerCode,
+  modelCode,
+  platesNumber,
+  year,
+  color,
+  seatsAmount,
+  engineType,
+  transmissionType,
+  description,
+  rentalPricePerDay,
+  renterId
+) {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "INSERT INTO cars (Manufacturer_Code, model_code, Plates_Number, Year, Color, Seats_Amount, Engine_Type, Transmission_type, Description, Rental_Price_Per_Day, Renter_Id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      [
+        manufacturerCode,
+        modelCode,
+        platesNumber,
+        year,
+        color,
+        seatsAmount,
+        engineType,
+        transmissionType,
+        description,
+        rentalPricePerDay,
+        renterId,
+      ],
+      (error, results) => {
+        if (error) {
+          console.error("Error adding car:", error);
+          reject("Failed to add car");
+        } else {
+          resolve(results);
+        }
+      }
+    );
+  });
+}
+
+// Function to insert car images
+function insertCarImages(db, platesNumber, imageUrls) {
+  const insertPromises = imageUrls.map((url) => {
+    return new Promise((resolve, reject) => {
+      db.query(
+        "INSERT INTO car_images (Plates_Number, image_url) VALUES (?, ?)",
+        [platesNumber, url],
+        (error) => {
+          if (error) {
+            console.error("Error adding image URL:", error);
+            reject(error);
+          } else {
+            resolve();
+          }
+        }
+      );
+    });
+  });
+
+  return Promise.all(insertPromises);
+}
+
+// Function to add a car
+async function addCar(db, carData) {
+  const {
+    Manufacturer_Code,
+    Manufacturer_Name,
+    model_name,
+    model_code,
+    Plates_Number,
+    Year,
+    Color,
+    Seats_Amount,
+    Engine_Type,
+    Transmission_type,
+    Description,
+    Rental_Price_Per_Day,
+    Renter_Id,
+    image_url,
+  } = carData;
+
+  try {
+    // Check if the manufacturer exists
+    const manufacturerExists = await checkManufacturerExists(db, Manufacturer_Code);
+
+    if (!manufacturerExists) {
+      // Manufacturer does not exist, insert into manufacturers table
+      await insertManufacturer(db, Manufacturer_Code, Manufacturer_Name);
+    }
+
+    // Check if the model exists
+    const modelExists = await checkModelExists(db, model_code);
+
+    if (!modelExists) {
+      // Model does not exist, insert into models table
+      await insertModel(db, model_code, model_name, Manufacturer_Code);
+    }
+
+    // Check if the user exists
+    const userExists = await checkUserExists(db, Renter_Id);
+
+    if (!userExists) {
+      // User with the specified Renter_Id doesn't exist
+      throw new Error("Renter_Id not found");
+    }
+
+    // Insert the car details into the cars table
+    await insertCar(
+      db,
+      Manufacturer_Code,
+      model_code,
+      Plates_Number,
+      Year,
+      Color,
+      Seats_Amount,
+      Engine_Type,
+      Transmission_type,
+      Description,
+      Rental_Price_Per_Day,
+      Renter_Id
+    );
+
+    // Insert the image URLs into the car_images table
+    if (image_url && image_url.length > 0) {
+      await insertCarImages(db, Plates_Number, image_url);
+    }
+
+    return { message: "Car added successfully" };
+  } catch (error) {
+    console.error("Error adding car:", error);
+    throw new Error("Failed to add car");
+  }
+}
+
+
+// ########################################################################################
+// #                          END OF ADD CAR SERVICE FUNCTIONS                            #
+// ########################################################################################
+
 module.exports = {
   registerUser,
-  loginUser
+  loginUser,
+  addCar
 };

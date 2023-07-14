@@ -64,10 +64,25 @@ router.post("/uploadProfileImage", (req, res) => {
       return res.json({ message: "Success", fileUrl });
     });
   });
+
+
+
+
+router.post("/addcar", async (req, res) => {
+  const carData = req.body;
+  try {
+    const result = await UserServices.addCar(db, carData);
+    res.status(200).json({message:'Successfully added car', result:result});
+  } catch (error) {
+    res.status(500).json({ error: "Failed to add car" });
+  }
+});
+
+
+// multer for uploading 1 single profile picture.  
+const upload = multer({
+  dest: path.join(__dirname, "../images"),
+}).single("profileImage");
   
-  const upload = multer({
-    dest: path.join(__dirname, "../images"),
-  }).single("profileImage");
-  
-  module.exports = router;
+module.exports = router;
   
