@@ -3,12 +3,14 @@ import Logo from "../Logo/Logo";
 import classes from "./userheader.module.css";
 import Button from "../Button/Button";
 
-export default function UserHeader({ handleLogout }) {
-
+export default function UserHeader({setIsLoggedIn}) {
 
   const logout = () => {
-    handleLogout();
-  };
+    setIsLoggedIn(false);
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+  }
+
 
   const btnLogoutStyle = {
     backgroundColor: "black",
