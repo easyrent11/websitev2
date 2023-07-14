@@ -1,0 +1,43 @@
+.header{
+ width: 100%;
+}
+
+
+.nav{
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    margin: 1rem;
+}
+
+
+.local_links{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+
+.register_login_div{
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 2rem;
+    width: 50%;
+}
+
+.a{
+    margin: 1rem;
+    padding: 1rem;
+    text-decoration: none;
+    border-radius: 20px;
+    color: #404040;
+    cursor: pointer;
+}
+
+.a:hover{
+    background-color: #f6f6f6;
+}

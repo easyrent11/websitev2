@@ -1,0 +1,86 @@
+.footer {
+    background-color: black;
+    padding: 2rem;
+    width: 100%;
+    border: 2px solid red;
+  }
+  
+  .article {
+    display: flex;
+    justify-content: space-around;
+    margin: 2rem;
+    padding: 2rem;
+    border:3px solid yellow;
+  }
+  
+  .about {
+    color: white;
+    width: 25%;
+    padding: 1rem;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .companyName {
+    color: #CC6200;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 1rem;
+  }
+  
+  .contactInfo {
+    color: white;
+    width: 25%;
+    margin-left: 1rem;
+  }
+  
+  .contactItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    margin: 0.5rem;
+  }
+  
+  .icon {
+    margin: 0.5rem;
+    color: white;
+    font-size: 1.7rem;
+  }
+  .icon:hover{
+    color: red;
+  }
+  
+  
+  .navigate {
+    color: white;
+    text-align: center;
+    margin: 0.5rem 2rem;
+  }
+  
+  .link {
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+    color: #CC6200;
+  }
+  
+  .socialMediaIcons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 1rem;
+    margin: 1rem 4rem;
+    border-bottom: 1px solid white;
+  }
+  
+  .copyRight {
+    margin: 1rem;
+    padding: 1rem;
+    color: white;
+    font-size: 1rem;
+  }
+  

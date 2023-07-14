@@ -1,0 +1,63 @@
+/* Base styles for all screen sizes */
+.form {
+  display: flex;
+  border: 3px solid red;
+  width: 60%;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: #f6f6f6;
+}
+
+.inputContainer {
+  margin: 0.5rem;
+  border: 2px solid blue;
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.input {
+  width: 90%;
+  padding: 0.5rem;
+  font-size: 1.3rem;
+  border: 1px solid gray;
+  border-radius: 10px;
+}
+
+.select {
+  width: 100%;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+}
+
+.searchIcon {
+  color: white;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+  .form {
+    width: 80%;
+  }
+
+  .inputContainer {
+    width: 90%;
+  }
+}
+
+/* Responsive styles for even smaller screens */
+@media screen and (max-width: 480px) {
+  .form {
+    width: 100%;
+  }
+
+  .inputContainer {
+    width: 100%;
+  }
+}

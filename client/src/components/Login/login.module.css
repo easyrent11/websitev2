@@ -1,0 +1,92 @@
+.login {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.background {
+  background-color: #e7e7e7;
+  max-width: 30rem;
+  padding: 2rem;
+  margin: 0 auto;
+  border-radius: 0.5rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.closeButton {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.closeButtonStyle {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 5px;
+  width: 10%;
+  cursor: pointer;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.label {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+}
+
+.input {
+  border: 1px solid gray;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 0.25rem;
+  width: 100%;
+  font-size: 1.2rem;
+}
+
+.submitButton {
+  background-color: #cc6200;
+  color: white;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.25rem;
+  width: 50%;
+  margin: 1rem auto;
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.forgotPassword {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1.2rem;
+}
+
+.resetLink {
+  padding: 0.5rem;
+  color: #cc6200;
+  font-size: 1.2rem;
+}
+
+.errorMessage {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 1.2rem;
+}
