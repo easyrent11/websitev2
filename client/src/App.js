@@ -15,7 +15,6 @@ function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const [carList, setCarList] = useState([]);
   const [allCars, setAllCars] = useState([]);
 
@@ -33,14 +32,13 @@ function App() {
     setShowLogin(false);
   };
 
-    // Check if the user is already logged in on initial mount
-    useEffect(() => {
-      const token = localStorage.getItem('token');
-      if (token) {
-        setIsLoggedIn(true);
-      }
-    }, []);
- 
+  // Check if the user is already logged in on initial mount
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const handleLogin = () => setIsLoggedIn(true);
 
@@ -59,7 +57,7 @@ function App() {
           {showRegister && (
             <Register onClose={closeRegister} openLogin={openLogin} />
           )}
-          <Footer />
+          <Footer/>
         </AllCarsContext.Provider>
       </SearchCarListResult.Provider>
     </>

@@ -1,5 +1,5 @@
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 /*
 #####################################################################
@@ -10,31 +10,39 @@ const jwt = require('jsonwebtoken');
 // Function to check if a city exists
 function checkCityExists(db, cityCode) {
   return new Promise((resolve, reject) => {
-    db.query("SELECT * FROM cities WHERE City_Code = ?", [cityCode], (error, results) => {
-      if (error) {
-        reject("Failed to register user");
-      } else {
-        resolve(results.length > 0);
+    db.query(
+      "SELECT * FROM cities WHERE City_Code = ?",
+      [cityCode],
+      (error, results) => {
+        if (error) {
+          reject("Failed to register user");
+        } else {
+          resolve(results.length > 0);
+        }
       }
-    });
+    );
   });
 }
 
 // Function to insert a city
 function insertCity(db, cityCode, cityName) {
   return new Promise((resolve, reject) => {
-    db.query("INSERT INTO cities (City_Code, City_Name) VALUES (?, ?)", [cityCode, cityName], (error) => {
-      if (error) {
-        reject("Failed to register user");
-      } else {
-        resolve();
+    db.query(
+      "INSERT INTO cities (City_Code, City_Name) VALUES (?, ?)",
+      [cityCode, cityName],
+      (error) => {
+        if (error) {
+          reject("Failed to register user");
+        } else {
+          resolve();
+        }
       }
-    });
+    );
   });
 }
 
 // Function to insert a user
-  function insertUser(db, user) {
+function insertUser(db, user) {
   return new Promise((resolve, reject) => {
     db.query("INSERT INTO users SET ?", user, (error, results) => {
       if (error) {
@@ -104,16 +112,11 @@ async function registerUser(db, userData) {
 #####################################################################
 */
 
-
-
-
-
 /*
 #####################################################################
 #                       USER LOGIN SERVICE                          #
 #####################################################################
 */
-
 
 // Function to retrieve user by email
 function getUserByEmail(db, email) {
@@ -137,11 +140,9 @@ async function comparePasswords(password, hashedPassword) {
 
 // Function to generate JWT token
 function generateToken(userId) {
-  return jwt.sign(
-    { userId },
-    process.env.ACCESS_TOKEN_SECRET,
-    { expiresIn: "12h" }
-  );
+  return jwt.sign({ userId }, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: "12h",
+  });
 }
 
 // Function to handle user login
@@ -183,7 +184,6 @@ async function loginUser(db, email, password) {
 #                   END OF USER LOGIN SERVICE                       #
 #####################################################################
 */
-
 
 // ########################################################################################
 // #                                ADD CAR SERVICE FUNCTIONS                             #
@@ -264,14 +264,18 @@ function insertModel(db, modelCode, modelName, manufacturerCode) {
 // Function to check if a user exists
 function checkUserExists(db, renterId) {
   return new Promise((resolve, reject) => {
-    db.query("SELECT id FROM users WHERE id = ?", [renterId], (error, results) => {
-      if (error) {
-        console.error("Error checking user:", error);
-        reject("Failed to add car");
-      } else {
-        resolve(results.length > 0);
+    db.query(
+      "SELECT id FROM users WHERE id = ?",
+      [renterId],
+      (error, results) => {
+        if (error) {
+          console.error("Error checking user:", error);
+          reject("Failed to add car");
+        } else {
+          resolve(results.length > 0);
+        }
       }
-    });
+    );
   });
 }
 
@@ -358,10 +362,13 @@ async function addCar(db, carData) {
     Renter_Id,
     image_url,
   } = carData;
-
+  console.log("car DAta ====   ", carData);
   try {
     // Check if the manufacturer exists
-    const manufacturerExists = await checkManufacturerExists(db, Manufacturer_Code);
+    const manufacturerExists = await checkManufacturerExists(
+      db,
+      Manufacturer_Code
+    );
 
     if (!manufacturerExists) {
       // Manufacturer does not exist, insert into manufacturers table
@@ -412,7 +419,6 @@ async function addCar(db, carData) {
   }
 }
 
-
 // ########################################################################################
 // #                          END OF ADD CAR SERVICE FUNCTIONS                            #
 // ########################################################################################
@@ -420,5 +426,5 @@ async function addCar(db, carData) {
 module.exports = {
   registerUser,
   loginUser,
-  addCar
+  addCar,
 };

@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const userRoutes = require('./routes/user');
-
+const carRoutes = require('./routes/cars')
 //const addCarRoutes = require('./routes/addcar');
 
 // defining the server port.
@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/images', express.static('images'));
-// app.use('/cars', carRoutes);
+app.use('/cars', carRoutes);
 app.use('/user', userRoutes);
 
 

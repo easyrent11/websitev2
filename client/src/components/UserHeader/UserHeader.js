@@ -3,14 +3,12 @@ import Logo from "../Logo/Logo";
 import classes from "./userheader.module.css";
 import Button from "../Button/Button";
 
-export default function UserHeader({setIsLoggedIn}) {
-
+export default function UserHeader({ setIsLoggedIn, setOpenAddCar }) {
   const logout = () => {
     setIsLoggedIn(false);
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
-  }
-
+  };
 
   const btnLogoutStyle = {
     backgroundColor: "black",
@@ -29,7 +27,9 @@ export default function UserHeader({setIsLoggedIn}) {
     cursor: "pointer",
   };
 
-  
+  const handleOpenAddCar = () => {
+    setOpenAddCar(true);
+  };
   return (
     <header className={classes.header}>
       <nav className={classes.nav}>
@@ -38,7 +38,11 @@ export default function UserHeader({setIsLoggedIn}) {
           <a href="/" className={classes.a}>
             Home
           </a>
-          <Button name="Add Car" style={navBtnsStyle}></Button>
+          <Button
+            name="Add Car"
+            style={navBtnsStyle}
+            onClick={handleOpenAddCar}
+          ></Button>
           <Button
             name="Logout"
             style={btnLogoutStyle}
