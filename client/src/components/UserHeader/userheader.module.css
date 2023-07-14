@@ -22,8 +22,12 @@
 
    .a{
     margin: 1rem;
-    border-radius: 5px;
-    border: none;
-    width: 10%;
+    padding: 1rem;
+    text-decoration: none;
+    border-radius: 20px;
+    color: #404040;
     cursor: pointer;
    }
+   .a:hover{
+    background-color: #f6f6f6;
+    }

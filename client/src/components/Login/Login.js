@@ -2,7 +2,7 @@ import React, { useState} from "react";
 import { login } from "../../api/usersApi";
 import styles from "./login.module.css";
 
-export default function Login({ onClose, handleLogin,setIsLoggedIn}) {
+export default function Login({handleLogin, onClose}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [ErrorMessage, setErrorMessage] = useState("");
@@ -29,8 +29,7 @@ export default function Login({ onClose, handleLogin,setIsLoggedIn}) {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("userId", res.data.userId);
         console.log("Successfully logged in");
-        handleLogin(true);
-        setIsLoggedIn(true);
+        handleLogin();
       })
       .catch((err) => {
         console.log("There was an error logging in ");

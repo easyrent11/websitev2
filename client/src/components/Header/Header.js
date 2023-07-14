@@ -30,7 +30,7 @@ export default function Header({ openLogin, openRegister }) {
       <nav className={classes.nav}>
         <div className={classes.local_links}>
           <Logo/>
-          <a className={classes.a} href='#'>
+          <a className={classes.a} href='/'>
             Home
           </a>
             <a
