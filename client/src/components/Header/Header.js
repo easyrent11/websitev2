@@ -1,4 +1,4 @@
-import React , {useState,useEffect} from 'react'
+import React  from 'react'
 import Logo from "../Logo/Logo"
 import classes from './header.module.css';
 import Button from '../Button/Button';

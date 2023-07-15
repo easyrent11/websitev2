@@ -78,6 +78,25 @@ router.post("/addcar", async (req, res) => {
   }
 });
 
+router.get("/getuser/:id", (req, res) => {
+  const userId = req.params.id;
+  const query = `SELECT users.Id, users.phone_number, users.driving_license, users.picture, users.email, users.city_code,cities.City_Name, users.street_name, users.first_name, users.last_name, users.isadmin, users.status
+                 FROM users
+                 INNER JOIN cities ON users.city_code = cities.city_code
+                 WHERE users.id = ${userId}`;
+
+  db.query(query, (error, results) => {
+    if (error) {
+      // Handle the error
+      console.error("Error retrieving user info:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    } else {
+      // User info retrieved successfully
+      res.json(results);
+    }
+  });
+});
+
 
 // multer for uploading 1 single profile picture.  
 const upload = multer({

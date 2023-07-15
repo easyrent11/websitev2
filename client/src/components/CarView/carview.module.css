@@ -1,11 +1,15 @@
 .carViewContainer {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  width: 100%;
   align-items: center;
+  border: 3px solid yellow;
 }
 
 .carouselSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   max-width: 768px;
   margin-top: 10px;
@@ -22,10 +26,12 @@
 .carouselImage {
   object-fit: cover;
   width: 100%;
-  height: 80vh;
+  max-height: 60vh;
 }
-
 .ownerSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   max-width: 768px;
   margin-top: 10px;
@@ -57,14 +63,14 @@
 
 .ownerName {
   font-size: 1.5rem;
-  margin-top: 8px;
+  margin-top: 1rem;
 }
 
 .carInfo {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-top: 16px;
+  margin-top: 2rem;
 }
 
 .carTitle {
@@ -80,108 +86,22 @@
 .carFeatures {
   display: flex;
   justify-content: space-between;
-  margin-top: 16px;
+  align-items: center;
+  margin-top: 2rem;
+  width: 100%;
 }
 
 .featureList {
   list-style: none;
   display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
 }
 
 .featureIcon {
   display: inline-block;
   font-size: 1.5rem;
-  margin-right: 4px;
-}
-
-.rentButtonContainer {
-  margin-top: 16px;
-  display: flex;
-  justify-content: center;
-}
-
-.rentButton {
-  background-color: #000000;
-  color: #ffffff;
-  padding: 8px 16px;
-  border-radius: 0.375rem;
-  font-weight: 600;
-}
-
-.bookingSection {
-  width: 100%;
-  max-width: 768px;
-  margin-top: 10px;
-  padding: 16px;
-  background-color: #ffffff;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  border-radius: 0.375rem;
-}
-
-.bookingHeader {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
-}
-
-.bookingTitle {
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-.bookingForm {
-  margin-bottom: 16px;
-}
-
-.bookingFormItem {
-  margin-bottom: 8px;
-}
-
-.bookingLabel {
-  color: #4b5563;
-  font-size: 0.875rem;
-  font-weight: 500;
-  margin-bottom: 2px;
-}
-
-.bookingInput {
-  border: 2px solid #e2e8f0;
-  border-radius: 0.375rem;
-  padding: 8px;
-  width: 100%;
-}
-
-.bookingNote {
-  color: #4b5563;
-  font-size: 0.875rem;
-  margin-bottom: 16px;
-}
-
-.bookingPrice {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.bookingPriceLabel {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-
-.bookingPriceValue {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #cc6200;
-}
-
-.bookingButton {
-  background-color: #cc6200;
-  color: #ffffff;
-  padding: 8px 16px;
-  border-radius: 0.375rem;
-  margin: 1px;
-  font-weight: 600;
+  margin-right: 0.5rem;
 }

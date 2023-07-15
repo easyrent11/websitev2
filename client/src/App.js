@@ -2,12 +2,12 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
-import Header from "./components/Header/Header";
 import HomeLayout from "./pages/HomeLayout";
 import UserLayout from "./pages/UserLayout";
-import UserHeader from "./components/UserHeader/UserHeader";
 import { SearchCarListResult } from "./contexts/SearchCarListResult";
 import { AllCarsContext } from "./contexts/AllCarsContext";
+import { UserProfileDetails } from "./contexts/UserProfileDetails";
+import { getAllUserDetails } from "./api/usersApi";
 import Footer from "./components/Footer/Footer";
 import axios from "axios";
 
@@ -19,6 +19,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [carList, setCarList] = useState([]);
   const [allCars, setAllCars] = useState([]);
+  const [userDetails, setUserDetails] = useState("");
 
   const closeLogin = () => setShowLogin(false);
   const closeRegister = () => setShowRegister(false);
@@ -59,12 +60,23 @@ function App() {
     }
   }, []);
 
+  
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    getAllUserDetails(userId)
+    .then((res) => {
+      setUserDetails(res.data[0]);
+    })
+    .catch((err) => console.log("Couldnt get user details ", err));
+  },[]);
+
   const handleLogin = () => setIsLoggedIn(true);
 
   return (
     <>
       <SearchCarListResult.Provider value={{ carList, updateCarList }}>
         <AllCarsContext.Provider value={{ allCars, setAllCars }}>
+        <UserProfileDetails.Provider value={{userDetails,setUserDetails}}>
           {isLoggedIn ? (
             <UserLayout setIsLoggedIn={setIsLoggedIn} />
           ) : (
@@ -77,6 +89,7 @@ function App() {
             <Register onClose={closeRegister} openLogin={openLogin} />
           )}
           <Footer/>
+          </UserProfileDetails.Provider>
         </AllCarsContext.Provider>
       </SearchCarListResult.Provider>
     </>

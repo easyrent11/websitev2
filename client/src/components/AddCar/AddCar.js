@@ -6,12 +6,11 @@ import { CarMakesAndModels } from "../../res/CarMakesAndModels";
 import Select from "react-select";
 import styles from "./addcar.module.css";
 
-export default function AddCar({setOpenAddCar}) {
+export default function AddCar({handleAddCarClose}) {
 
-  // exist the add car component by changing the useState variable.
   const toggleVisibility = () => {
-    setOpenAddCar(false);
-  }
+    handleAddCarClose();
+  };
 
   //styling for the add car button.
   const btnStyle = {
@@ -156,6 +155,8 @@ export default function AddCar({setOpenAddCar}) {
       .catch((error) => {
         console.error(error);
       });
+
+      handleAddCarClose();
   };
 
   return (

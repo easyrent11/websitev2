@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Logo from "../Logo/Logo";
 import classes from "./userheader.module.css";
 import Button from "../Button/Button";
 
-export default function UserHeader({ setIsLoggedIn, setOpenAddCar }) {
+export default function UserHeader({ setIsLoggedIn, handleAddCarClick }) {
   const logout = () => {
     setIsLoggedIn(false);
     localStorage.removeItem("token");
@@ -28,7 +28,7 @@ export default function UserHeader({ setIsLoggedIn, setOpenAddCar }) {
   };
 
   const handleOpenAddCar = () => {
-    setOpenAddCar(true);
+    handleAddCarClick();
   };
   return (
     <header className={classes.header}>

@@ -18,5 +18,9 @@ export const checkIfCarExists = (platesNumber) => {
   return axios.post(`${BASE_URL}/checkcarexists`, platesNumber);
 }
 
+export const updateCarDetails = (carDetails) => {
+  return axios.put(`${BASE_URL}/updatecardetails`, carDetails);
+}
+
 
 

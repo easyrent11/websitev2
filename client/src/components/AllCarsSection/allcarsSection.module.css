@@ -2,6 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 1rem;
+  border: 3px solid blue;
 }
 
 .noCars {
@@ -13,6 +15,14 @@
 .carList {
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
-  padding: 2px;
+  justify-content: center; /* Center the cars horizontally */
+  margin: 2rem;
+  border: 3px solid green;
+}
+
+.carWrapper {
+  border: 3px solid blue;
+  width: 50%; /* Each car wrapper takes 50% width to fit two on the same row */
+  box-sizing: border-box; /* Include borders in the width calculation */
+  padding: 1rem;
 }

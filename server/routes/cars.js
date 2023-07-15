@@ -4,6 +4,7 @@ const express = require("express");
 const router = express.Router();
 const fs = require('fs');
 const carServices = require("../services/CarServices");
+const db = require('../models/db');
 
 router.post("/uploadImages", (req, res) => {
   upload(req, res, function (err) {
@@ -45,6 +46,21 @@ router.get("/getallcars", async (req, res) => {
   } catch (error) {
     console.error("Error retrieving cars:", error);
     res.status(500).json({ error: "Error retrieving cars" });
+  }
+});
+
+// Route to update car details
+router.put("/updatecardetails", async (req, res) => {
+  // Retrieve the updated car details from the request body
+  const updatedCarDetails = req.body;
+  console.log("Updated Details =",updatedCarDetails);
+
+  try {
+    await carServices.updateCarDetails(db, updatedCarDetails);
+    res.json({ message: "Car details and image updated successfully" });
+  } catch (error) {
+    console.error("Error updating car details:", error);
+    res.status(500).json({ message: "Failed to update car details and image" });
   }
 });
 
