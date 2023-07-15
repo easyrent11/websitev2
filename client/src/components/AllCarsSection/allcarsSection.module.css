@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.noCars {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: black;
+}
+
+.carList {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 2px;
+}

@@ -12,6 +12,8 @@ import Footer from "./components/Footer/Footer";
 import axios from "axios";
 
 function App() {
+
+
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -22,6 +24,9 @@ function App() {
   const closeRegister = () => setShowRegister(false);
   const updateCarList = (updatedList) => setCarList(updatedList);
 
+
+
+
   const openLogin = () => {
     setShowLogin(true);
     setShowRegister(false);
@@ -31,6 +36,20 @@ function App() {
     setShowRegister(true);
     setShowLogin(false);
   };
+
+  useEffect(() => {
+    // Fetch all cars from backend API using Axios
+    axios
+      .get("http://localhost:3001/cars/getallcars")
+      .then((response) => {
+        console.log(response.data);
+        setAllCars(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching cars:", error);
+      });
+  }, []);
+
 
   // Check if the user is already logged in on initial mount
   useEffect(() => {

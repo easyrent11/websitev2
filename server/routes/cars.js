@@ -3,6 +3,7 @@ const path = require("path");
 const express = require("express");
 const router = express.Router();
 const fs = require('fs');
+const carServices = require("../services/CarServices");
 
 router.post("/uploadImages", (req, res) => {
   upload(req, res, function (err) {
@@ -37,5 +38,14 @@ const upload = multer({
 }).array("carpics", 20);
 
 
+router.get("/getallcars", async (req, res) => {
+  try {
+    const carsWithImages = await carServices.getAllCarsWithImages();
+    res.status(200).json(carsWithImages);
+  } catch (error) {
+    console.error("Error retrieving cars:", error);
+    res.status(500).json({ error: "Error retrieving cars" });
+  }
+});
 
 module.exports = router;

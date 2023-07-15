@@ -1,0 +1,88 @@
+/* Car.module.css */
+.carContainer {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  margin: 4px;
+  padding: 2px;
+  border-radius: 0.25rem;
+}
+
+.carImageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  justify-content: center;
+}
+
+.carImage {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.25rem;
+  margin-top: 8px;
+}
+
+.carDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  margin: 4px;
+  padding: 1px;
+}
+
+.carTitle {
+  padding: 2px;
+}
+
+.carModel {
+  font-size: 2rem;
+}
+
+.carYear {
+  padding: 2px;
+  font-size: 1rem;
+  font-family: sans-serif;
+  color: #6d6d6d;
+}
+
+.carInfo {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-bottom: 2px;
+  padding: 2px;
+}
+
+.carInfoItem {
+  margin: 1px;
+}
+
+.carInfoIcon {
+  margin: 1px;
+  font-size: 2rem;
+  color: #777777;
+}
+
+.carPriceContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px;
+}
+
+.carPrice {
+  color: #00215e;
+}
+
+.rentButton {
+  background-color: #000000;
+  color: #ffffff;
+  padding: 2px;
+  border-radius: 0.25rem;
+}
