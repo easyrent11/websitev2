@@ -23,7 +23,7 @@ export default function Footer() {
         </div>
 
         {/* Contact Info */}
-        <div className={styles.contactInfo} flex flex-col items-start justify-center text-white>
+        <div className={styles.contactInfo}>
           <h4 className={styles.title}>Contact Info</h4>
           <p className={styles.p}>
             <FiMapPin className={styles.icon} />Street Address: 123 EasyRent St, Haifa, Israel
@@ -52,8 +52,8 @@ export default function Footer() {
         </a>
       </div>
 
-      <div className="m-4 p-4">
-        <span className="text-white text-lg p-2 m-w-full m-2">
+      <div>
+        <span>
           © Copyright 2023, All rights reserved.
         </span>
       </div>
