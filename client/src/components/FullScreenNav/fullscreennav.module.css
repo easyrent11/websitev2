@@ -33,7 +33,7 @@
   background-color: #f6f6f6;
 }
 
-@media (max-width: 1194px) {
+@media (max-width: 900px) {
   .nav {
     display: none;
   }

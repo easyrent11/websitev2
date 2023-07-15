@@ -6,7 +6,7 @@
 }
 .logoArticle{
   border: solid red 3px ;
-  max-width: 50%;
+  max-width: 100%;
   display: flex;
   align-items: center;
   justify-items: center;
@@ -57,10 +57,11 @@
   cursor: pointer;
 }
 
-@media (max-width: 1194px) {
+@media (max-width: 900px) {
   .nav {
     border: solid green;
     display: flex;
+    width: 100%;
     align-items: center;
     justify-content: space-between;
   }
