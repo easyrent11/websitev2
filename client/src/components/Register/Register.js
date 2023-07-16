@@ -5,6 +5,7 @@ import { Cities } from "../../res/Cities";
 import Select from "react-select";
 import axios from "axios";
 import styles from "./register.module.css";
+import Button from '../Button/Button';
 
 export default function Register({ onClose, openLogin }) {
   const [firstName, setFirstName] = useState("");
@@ -21,6 +22,40 @@ export default function Register({ onClose, openLogin }) {
   const [governmentId, setGovernmentId] = useState("");
   const [drivingLicense, setDrivingLicense] = useState("");
   const [showLogin, setShowLogin] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  // register button styling.
+  const registerButtonStyle = {
+      backgroundColor: '#cc6200',
+      color: 'white',
+      padding: '0.5rem',
+      border: 'none',
+      borderRadius: '0.25rem',
+      width: '50%',
+      margin: '1rem auto',
+      fontSize: '1.3rem',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center', 
+  }
+  const closeButtonStyle = {
+      backgroundCcolor: 'black',
+      color: 'white',
+      border: 'none',
+      backgroundColor:'black',
+      padding: '0.5rem',
+      borderRadius: '5px',
+      width: '10%',
+      cursor: 'pointer',  
+  }
+  const loginButtonStyle = {
+    padding: '0.5rem',
+    color: '#cc6200',
+    fontSize: '1.3rem',
+    border: 'none',
+    background: 'none',
+  }
+
 
   const handleCityChange = (selectedOption) => {
     setCity(selectedOption.value);
@@ -38,7 +73,7 @@ export default function Register({ onClose, openLogin }) {
 
     // Validate the password match
     if (password !== verifyPassword) {
-      console.log(
+      setErrorMessage(
         "You entered different passwords. Please verify the password correctly."
       );
       return;
@@ -79,10 +114,10 @@ export default function Register({ onClose, openLogin }) {
             console.log(res.data.message);
             onClose();
           })
-          .catch((err) => console.log(err.data.message));
+          .catch((err) => setErrorMessage(err.data.message));
       })
       .catch((error) => {
-        console.error(error);
+        setErrorMessage(error);
       });
   };
 
@@ -91,23 +126,22 @@ export default function Register({ onClose, openLogin }) {
   };
 
   return (
+    <>
     <div className={styles.register}>
       <form className={styles.form}>
         <div className={styles.closeButton}>
-          <button
+          <Button
+            name="X"
             type="button"
-            className={styles.closeButtonStyle}
+            style={closeButtonStyle}
             onClick={onClose}
-          >
-            X
-          </button>
+          />
         </div>
         <h2 className={styles.title}>Register</h2>
         <p className={styles.loginPrompt}>
           Already have an account?
-          <button className={styles.loginButton} onClick={openLogin}>
-            Log in
-          </button>
+          <Button name="Log in" style={loginButtonStyle} onClick={openLogin}/>
+
         </p>
         <div className={styles.grid}>
           <div>
@@ -227,15 +261,18 @@ export default function Register({ onClose, openLogin }) {
             />
           </div>
         </div>
-        <button
+        <Button
+          name="Register"
           type="submit"
+          style={registerButtonStyle}
           onClick={handleRegister}
-          className={styles.registerButton}
-        >
-          Register
-        </button>
+        />
+        <p>{errorMessage}</p>
       </form>
       {showLogin && <Login onClose={toggleLogin} />}
     </div>
+
+
+    </>
   );
 }

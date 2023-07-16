@@ -1,18 +1,17 @@
 /* Base styles for all screen sizes */
 .form {
   display: flex;
-  border: 3px solid red;
   width: 70%;
   align-items: center;
   justify-content: center;
   padding: 0.5rem;
   border-radius: 0.5rem;
   background-color: #f6f6f6;
+  margin-bottom: 2rem;
 }
 
 .inputContainer {
   margin: 0.5rem;
-  border: 2px solid blue;
   width: 100%;
   padding: 0.5rem;
 }

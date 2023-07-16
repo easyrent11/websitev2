@@ -27,15 +27,6 @@
   justify-content: flex-end;
 }
 
-.closeButtonStyle {
-  background-color: black;
-  color: white;
-  border: none;
-  padding: 0.5rem;
-  border-radius: 5px;
-  width: 10%;
-  cursor: pointer;
-}
 
 .title {
   text-align: center;
@@ -58,19 +49,6 @@
   font-size: 1.2rem;
 }
 
-.submitButton {
-  background-color: #cc6200;
-  color: white;
-  padding: 0.5rem;
-  border: none;
-  border-radius: 0.25rem;
-  width: 50%;
-  margin: 1rem auto;
-  font-size: 1.3rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 
 .forgotPassword {
@@ -90,3 +68,4 @@
   margin-top: 1rem;
   font-size: 1.2rem;
 }
+

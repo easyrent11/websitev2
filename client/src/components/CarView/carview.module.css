@@ -3,7 +3,6 @@
   flex-direction: column;
   width: 100%;
   align-items: center;
-  border: 3px solid yellow;
 }
 
 .carouselSection {
@@ -27,6 +26,14 @@
   object-fit: cover;
   width: 100%;
   max-height: 60vh;
+}
+
+.carDetails{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
 }
 .ownerSection {
   display: flex;
@@ -85,11 +92,20 @@
 
 .carFeatures {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
   margin-top: 2rem;
   width: 100%;
 }
+.colorAndDescriptionContainer{
+  display: flex;
+  width: 100%;
+  list-style-type: none;
+  align-items: center;
+  justify-content: space-around;
+}
+
 
 .featureList {
   list-style: none;
@@ -103,5 +119,14 @@
   display: inline-block;
   font-size: 1.5rem;
   align-items: center;
-  margin-right: 0.5rem;
+  margin-right: 1rem;
+}
+
+@media screen and (max-width: 657px) {
+  .featureList{
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    padding: 1rem;
+  }
 }

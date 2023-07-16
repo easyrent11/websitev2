@@ -1,8 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { AllCarsContext } from '../../contexts/AllCarsContext';
-import { UserProfileDetails } from '../../contexts/UserProfileDetails';
 import PersonIcon from '@mui/icons-material/Person';
 import styles from './carview.module.css';
 import { TbManualGearbox } from 'react-icons/tb';
@@ -11,38 +9,52 @@ import { updateCarDetails } from '../../api/carsApi';
 import { CarMakesAndModels } from '../../res/CarMakesAndModels';
 import Select from 'react-select';
 import Button from '../Button/Button';
+import { getAllUserDetails } from '../../api/usersApi';
+
 export default function CarView({ car }) {
-  const { userDetails } = useContext(UserProfileDetails);
-  const userFirstName = userDetails.first_name;
-  const userProfileImage = userDetails.picture;
-  const { allCars } = useContext(AllCarsContext);
-  let flag = false;
+   // State variables for editable fields and updated values
+   const [editMode, setEditMode] = useState(false);
+   const [updatedManufacturerCode, setUpdatedManufacturerCode] = useState(car.Manufacturer_Code);
+   const [updatedModelCode, setUpdatedModelCode] = useState(car.model_code);
+   const [updatedYear, setUpdatedYear] = useState(car.Year);
+   const [updatedColor, setUpdatedColor] = useState(car.Color);
+   const [updatedSeatsAmount, setUpdatedSeatsAmount] = useState(car.Seats_Amount);
+   const [updatedEngineType, setUpdatedEngineType] = useState(car.Engine_Type);
+   const [updatedTransmissionType, setUpdatedTransmissionType] = useState(car.Transmission_type);
+   const [updatedDescription, setUpdatedDescription] = useState(car.Description);
+   const [updatedRentalPrice, setUpdatedRentalPrice] = useState(car.Rental_Price_Per_Day);
+   const [updatedRenterId, setUpdatedRenterId] = useState(car.Renter_Id);
+  
+  // state variables for car owner and for error message.
+  const [carOwnerName, setCarOwnerName] = useState("");
+  const [carOwnerPicture, setCarOwnerPicture] = useState("");
+  const [error, setError] = useState("");
 
-  // State variables for editable fields and updated values
-  const [editMode, setEditMode] = useState(false);
-  const [updatedManufacturerCode, setUpdatedManufacturerCode] = useState(car.Manufacturer_Code);
-  const [updatedModelCode, setUpdatedModelCode] = useState(car.model_code);
-  const [updatedYear, setUpdatedYear] = useState(car.Year);
-  const [updatedColor, setUpdatedColor] = useState(car.Color);
-  const [updatedSeatsAmount, setUpdatedSeatsAmount] = useState(car.Seats_Amount);
-  const [updatedEngineType, setUpdatedEngineType] = useState(car.Engine_Type);
-  const [updatedTransmissionType, setUpdatedTransmissionType] = useState(car.Transmission_type);
-  const [updatedDescription, setUpdatedDescription] = useState(car.Description);
-  const [updatedRentalPrice, setUpdatedRentalPrice] = useState(car.Rental_Price_Per_Day);
-  const [updatedRenterId, setUpdatedRenterId] = useState(car.Renter_Id);
-
-
+  
   // Style for save button
   const btnStyle = {
     backgroundColor: '#000000',
     color: '#ffffff',
     padding: '0.5rem',
-    width:'20%',
+    width:'100%',
     border:'none',
     margin:'1rem',
     borderRadius: '0.25rem'
   }
 
+  // Getting the car owner details by the car Renter Id.
+  let flag = false;
+  let LoggedInUserId = localStorage.getItem('userId');
+  console.log("The logged in user  = ", LoggedInUserId + "The car owner = " , car.Renter_Id);
+  getAllUserDetails(car.Renter_Id)
+  .then((result) => {
+    setCarOwnerName(result.data[0].first_name);
+    setCarOwnerPicture(result.data[0].picture);
+  })
+  .catch((err) => {
+    setError(err);
+  })
+ 
   // Function to handle save button click
   const handleSaveClick = () => {
     // Create an object with the updated car details
@@ -116,12 +128,12 @@ export default function CarView({ car }) {
           <h2 className={styles.ownerTitle}>Car Owner:</h2>
           <figure className={styles.ownerInfo}>
             <img
-              src={`http://localhost:3001/images/${userProfileImage}`}
+              src={`http://localhost:3001/images/${carOwnerPicture}`}
               className={styles.ownerImage}
               alt="Owner Profile"
             />
             <figcaption className={styles.ownerName}>
-              Name: {userFirstName}
+              Name: {carOwnerName}
             </figcaption>
           </figure>
   
@@ -266,7 +278,10 @@ export default function CarView({ car }) {
                   `Engine Type: ${car.Engine_Type}`
                 )}
               </li>
-              <li>
+            </ul>
+
+            <ul className={styles.colorAndDescriptionContainer}>
+               <li>
                 <h3 className={styles.carColorTitle}>Color:</h3>
                 {editMode ? (
                   <Select
@@ -325,11 +340,13 @@ export default function CarView({ car }) {
             <Button style={btnStyle} onClick={handleSaveClick} name="Save"></Button>
           )}
   
-          {car.Renter_Id !== userDetails._id && (
+          {car.Renter_Id == LoggedInUserId && (
             <Button style={btnStyle} onClick={() => setEditMode(!editMode)} name={editMode ? 'Cancel' : 'Edit'}> </Button>
           )}
         </section>
       </div>
+
+      <p>{error}</p>
     </div>
   );
 }  

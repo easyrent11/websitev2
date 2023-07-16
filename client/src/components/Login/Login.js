@@ -1,12 +1,39 @@
 import React, { useState} from "react";
 import { login } from "../../api/usersApi";
 import styles from "./login.module.css";
+import Button from '../Button/Button';
 
 export default function Login({handleLogin, onClose}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [ErrorMessage, setErrorMessage] = useState("");
 
+  // styling for the login button and close button.
+
+  const closeButtonStyle = {
+      backgroundColor: 'black',
+      color: 'white',
+      border: 'none',
+      padding: '0.5rem',
+      borderRadius: '5px',
+      width: '10%',
+      cursor: 'pointer'
+  }
+  const loginButtonStyle = {
+
+    backgroundColor: '#cc6200',
+    color: 'white',
+    padding: '0.5rem',
+    border: 'none',
+    borderRadius: '0.25rem',
+    width: '50%',
+    margin: '1rem auto',
+    fontSize: '1.3rem',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+
+  }
 
   // handle the login submit.
   const handleFormLogin = (e) => {
@@ -16,7 +43,6 @@ export default function Login({handleLogin, onClose}) {
     if (token) {
       // User is already signed in, display a message or handle accordingly
       setErrorMessage("error", "You are already signed in");
-      return;
     }
     // creating the login object.
     const loginInfo = {
@@ -28,17 +54,19 @@ export default function Login({handleLogin, onClose}) {
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("userId", res.data.userId);
-        console.log("Successfully logged in");
+        setErrorMessage("Successfully logged in");
         handleLogin();
+        onClose();
+
       })
-      .catch((err) => {
-        console.log("There was an error logging in ");
+      .catch(() => {
+        setErrorMessage("Wrong email or password please try again..");
       })
       .finally(() => {
         setEmail("");
         setPassword("");
       });
-      onClose();
+      
   };
 
   return (
@@ -48,13 +76,12 @@ export default function Login({handleLogin, onClose}) {
         <div className={styles.content}>
           <form>
             <div className={styles.closeButton}>
-              <button
+              <Button
+                name="X"
                 type="button"
-                className={styles.closeButtonStyle}
+                style={closeButtonStyle}
                 onClick={onClose}
-              >
-                X
-              </button>
+              />
             </div>
             <h2 className={styles.title}>Login</h2>
 
@@ -76,13 +103,12 @@ export default function Login({handleLogin, onClose}) {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <button
+            <Button
               type="submit"
-              className={styles.submitButton}
+              name="Login"
+              style={loginButtonStyle}
               onClick={handleFormLogin}
-            >
-              Login
-            </button>
+            />
           </form>
           <p className={styles.errorMessage}>{ErrorMessage}</p>
         </div>

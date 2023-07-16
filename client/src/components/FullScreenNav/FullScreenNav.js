@@ -7,18 +7,18 @@ export default function FullScreenNav({ openLogin, openRegister }) {
     margin: "1rem",
     borderRadius: "5px",
     border: "none",
-    width: "10%",
+    width: "25%",
     cursor: "pointer",
-    padding: "0.5rem",
+    padding: "1rem",
   };
 
   const btnStyle2 = {
     backgroundColor: "black",
     color: "white",
     margin: "1rem",
-    padding: "0.5rem",
+    padding: "1rem",
     border: "none",
-    width: "10%",
+    width: "25%",
     cursor: "pointer",
     borderRadius: "5px",
   };

@@ -23,6 +23,18 @@ export default function AddCar({handleAddCarClose}) {
     cursor: "pointer",
     transition: "backgroundColor 0.3s ease",
   };
+ 
+  const closeButtonStyle = {
+    gridColumn: '2', /* Take the second column */
+    gridRow: '1', /* Take the first row */
+    justifySelf: 'end', // Align the X button on the right
+    alignSelf: 'start', // Align the X button on the top
+    backgroundColor:'black',
+    padding:'0.5rem',
+    color:'white',
+    borderRadius:'10px',  
+  };
+
   // getting the user ID
   const userId = localStorage.getItem("userId");
 
@@ -159,18 +171,14 @@ export default function AddCar({handleAddCarClose}) {
       handleAddCarClose();
   };
 
+  
+
+
   return (
     <div className={styles.addCarContainer}>
-      <button
-        type="button"
-        className={styles.closeButtonStyle}
-        onClick={toggleVisibility} // Call the toggleVisibility function to close the component
-      >
-        X
-      </button>
-      <h2 className={styles.title}>Add Car</h2>
-
       <form className={styles.form}>
+        <h2 className={styles.title}>Add Car</h2>
+        <Button name="X" type="button" style={closeButtonStyle} onClick={toggleVisibility} />
         <div className={styles.field}>
           <label className={styles.label} htmlFor="manufacturer">
             Manufacturer:

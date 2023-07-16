@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import classes from "./dropdown.module.css";
 import Button from "../Button/Button";
 import Logo from "../Logo/Logo";
 import { FaBars } from "react-icons/fa";
+import classes from './userdropdown.module.css';
 
-export default function DropDownNav({ openLogin, openRegister }) {
+export default function UserDropDownNav({ setIsLoggedIn, handleAddCarClick }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -13,11 +13,11 @@ export default function DropDownNav({ openLogin, openRegister }) {
 
   const btnStyle1 = {
     margin: "1rem",
-    borderRadius: "10px",
     border: "none",
     width: "100%",
     cursor: "pointer",
-    padding: "0.7rem",
+    borderRadius: '10px',
+    padding: "1rem",
   };
 
   const btnStyle2 = {
@@ -27,8 +27,18 @@ export default function DropDownNav({ openLogin, openRegister }) {
     padding: "0.7rem",
     border: "none",
     width: "100%",
+    borderRadius: '10px',
     cursor: "pointer",
-    borderRadius: "10px",
+  };
+
+  const logout = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+  };
+
+  const handleOpenAddCar = () => {
+    handleAddCarClick();
   };
 
   return (
@@ -45,14 +55,8 @@ export default function DropDownNav({ openLogin, openRegister }) {
             <a className={classes.a} href="/">
               Home
             </a>
-            <a className={classes.a} href="#about">
-              About
-            </a>
-            <a className={classes.a} href="/">
-              Contact
-            </a>
-            <Button name="login" style={btnStyle1} onClick={openLogin} />
-            <Button name="register" style={btnStyle2} onClick={openRegister} />
+            <Button name="Add Car" style={btnStyle1} onClick={handleOpenAddCar} />
+            <Button name="Logout" style={btnStyle2} onClick={logout} />
           </div>
         )}
       </article>

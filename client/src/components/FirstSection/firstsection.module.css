@@ -5,13 +5,11 @@
     justify-content: center;
     width: 100%;
     background-size: cover;
-    border: 3px solid skyblue;
     background-repeat: no-repeat;
     background-position: center;
   }
   
   .article {
-    border: 3px solid green;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

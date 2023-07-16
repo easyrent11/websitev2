@@ -1,80 +1,86 @@
 .addCarContainer {
+  position: fixed;
+  inset: 0;
   display: flex;
-  flex-direction: column;
-  width: 25%;
+  align-items: flex-start; /* Align items to the top */
   justify-content: center;
-  align-items: center;
-  background-color: #f6f6f6;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  position: fixed; /* Change to fixed positioning */
-  top: 50%; /* Position at the center of the screen vertically */
-  left: 50%; /* Position at the center of the screen horizontally */
-  transform: translate(-50%, -50%); /* Center the component using negative translate */
-  z-index: 999; /* Set a higher z-index to ensure it appears on top of other elements */
-  opacity: 1; /* Start with 0 opacity */
-  transition: opacity 0.3s ease; /* Add a transition for opacity */
-}
-
-
-.closeButtonStyle {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  background-color: black;
-  color: white;
-  border: none;
-  padding: 0.5rem;
-  border-radius: 5px;
-  width: 2rem;
-  height: 2rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-}
-
-.title {
-  font-size: 1.5rem;
-  text-align: center;
-  font-weight: bold;
-  margin-bottom: 1rem;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .form {
-  width: 100%;
-  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  background-color: #e7e7e7;
+  max-width: 30%;
+  padding: 2rem;
+  margin: 0 auto;
+  border: 3px solid red;
   border-radius: 0.5rem;
 }
 
-.field {
+.title {
+  grid-column: 1 / span 2; /* Span both columns */
+  text-align: center;
   margin-bottom: 1rem;
 }
 
+
 .label {
   display: block;
-  color: #4b5563;
-  font-size: 0.875rem;
-  font-weight: bold;
   margin-bottom: 0.5rem;
+  margin-left: 1rem;
 }
 
 .input {
-  width: 100%;
+  border: none;
   padding: 0.5rem;
-  border: 1px solid #e2e8f0;
   border-radius: 0.25rem;
-  font-size: 0.875rem;
+  width: 100%; /* Adjust input width to fill the grid cells */
+  margin: 0.2rem;
 }
 
-.textarea {
-  width: 100%;
+.registerButton {
+  background-color: #cc6200;
+  color: white;
   padding: 0.5rem;
-  border: 1px solid #e2e8f0;
+  border: none;
   border-radius: 0.25rem;
-  font-size: 0.875rem;
-  resize: vertical;
+  width: 50%;
+  margin: 1rem auto;
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+.field:nth-of-type(11){
+  grid-column: 1/ span 2;
+}
+.field:nth-of-type(12){
+  grid-column: 1/ span 2;
+  justify-self: center;
+}
+.field:nth-of-type(9){
+  width: 100%;
+}
+.field:nth-of-type(9) > *{
+  width: 100%;
+}
+
+@media (max-width: 1377px) {
+  .form{
+    border: 3px solid green;
+    max-width: 50%;
+  }
+}
+
+@media (max-width: 900px) {
+  .form{
+    border: 3px solid green;
+    max-width: 90%;
+    height: 95%;
+  }
+}
