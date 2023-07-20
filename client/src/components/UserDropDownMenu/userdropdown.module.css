@@ -43,6 +43,7 @@
     padding: 2rem;
     top: 100%;
     right: 0;
+    z-index: 999;
   }
   
   .dropdown:hover .dropdownContent,

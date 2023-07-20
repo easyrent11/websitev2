@@ -6,13 +6,11 @@ import { CarMakesAndModels } from "../../res/CarMakesAndModels";
 import Select from "react-select";
 import styles from "./addcar.module.css";
 
-export default function AddCar({handleAddCarClose}) {
-
+export default function AddCar({ handleAddCarClose }) {
   const toggleVisibility = () => {
     handleAddCarClose();
   };
 
-  //styling for the add car button.
   const btnStyle = {
     backgroundColor: "#cc6200",
     color: "#ffffff",
@@ -22,27 +20,26 @@ export default function AddCar({handleAddCarClose}) {
     borderRadius: "0.25rem",
     cursor: "pointer",
     transition: "backgroundColor 0.3s ease",
+    justifySelf:"center",
   };
- 
+
   const closeButtonStyle = {
-    gridColumn: '2', /* Take the second column */
-    gridRow: '1', /* Take the first row */
-    justifySelf: 'end', // Align the X button on the right
-    alignSelf: 'start', // Align the X button on the top
-    backgroundColor:'black',
-    padding:'0.5rem',
-    color:'white',
-    borderRadius:'10px',  
+    gridColumn: "2",
+    gridRow: "1",
+    justifySelf: "end",
+    alignSelf: "start",
+    backgroundColor: "black",
+    padding: "0.5rem",
+    color: "white",
+    borderRadius: "10px",
   };
 
-  // getting the user ID
   const userId = localStorage.getItem("userId");
-
-  // resorting the list of cars.
   const sortedManufacturers = CarMakesAndModels.map((make) => ({
     value: make.brand,
     label: make.brand,
   })).sort((a, b) => a.label.localeCompare(b.label));
+
   const [manufacturers, setManufacturers] = useState(sortedManufacturers);
   const [models, setModels] = useState([]);
   const [selectedManufacturer, setSelectedManufacturer] = useState(null);
@@ -67,6 +64,7 @@ export default function AddCar({handleAddCarClose}) {
     setModels(manufacturerModels);
     setSelectedModel(""); // Clear the selected model when the manufacturer changes
   };
+
   const handleModelChange = (selectedOption) => {
     setSelectedModel(selectedOption.value);
   };
@@ -126,9 +124,7 @@ export default function AddCar({handleAddCarClose}) {
 
     uploadImages(uploadedImages)
       .then((response) => {
-        console.log("we got here...");
         const { files } = response.data;
-        console.log(files);
         const filenames = files.map((url) => {
           const pathname = new URL(url).pathname;
           return pathname.substring(pathname.lastIndexOf("/") + 1);
@@ -157,7 +153,6 @@ export default function AddCar({handleAddCarClose}) {
 
         addCar(carData)
           .then((res) => {
-            console.log(res);
             setSMassege(res.data.message);
           })
           .catch((err) => {
@@ -168,169 +163,215 @@ export default function AddCar({handleAddCarClose}) {
         console.error(error);
       });
 
-      handleAddCarClose();
+    handleAddCarClose();
   };
 
-  
+  function renderManufacturerSelect() {
+    return (
+      <div className={styles.field}>
+        <label className={styles.label} htmlFor="manufacturer">
+          Manufacturer:
+        </label>
+        <Select
+          value={selectedManufacturer}
+          onChange={handleManufacturerChange}
+          options={manufacturers}
+          placeholder="Select Manufacturer"
+          className={styles.input}
+        />
+      </div>
+    );
+  }
 
+  function renderModelSelect() {
+    return (
+      <div className={styles.field}>
+        <label className={styles.label} htmlFor="model">
+          Model:
+        </label>
+        <Select
+          options={models.map((model) => ({
+            value: model,
+            label: model,
+          }))}
+          value={
+            selectedModel
+              ? { value: selectedModel, label: selectedModel }
+              : null
+          }
+          onChange={handleModelChange}
+          isDisabled={!selectedManufacturer}
+          className={styles.input}
+        />
+      </div>
+    );
+  }
 
+  function renderPlatesNumberInput() {
+    return (
+      <div className={styles.field}>
+        <label className={styles.label} htmlFor="platesNumber">
+          Plates Number:
+        </label>
+        <input
+          className={styles.input}
+          id="platesNumber"
+          type="number"
+          value={platesNumber}
+          onChange={handlePlatesNumberChange}
+        />
+      </div>
+    );
+  }
+
+  function renderYearSelect() {
+    return (
+      <div className={styles.field}>
+        <label className={styles.label} htmlFor="year">
+          Year:
+        </label>
+        <Select
+          value={year}
+          onChange={handleYearChange}
+          options={Array.from({ length: 2025 - 1990 }, (_, index) => ({
+            value: 1990 + index,
+            label: (1990 + index).toString(),
+          }))}
+          placeholder="Select Year"
+          className={styles.input}
+        />
+      </div>
+    );
+  }
+
+  function renderColorSelect() {
+    return (
+      <div className={styles.field}>
+        <label className={styles.label} htmlFor="color">
+          Color:
+        </label>
+        <Select
+          value={color}
+          onChange={handleColorChange}
+          options={[
+            "red",
+            "black",
+            "blue",
+            "green",
+            "yellow",
+            "orange",
+            "purple",
+            "pink",
+            "gray",
+            "brown",
+            "white",
+          ].map((colorOption) => ({
+            value: colorOption,
+            label: colorOption,
+          }))}
+          placeholder="Select Color"
+          className={styles.input}
+        />
+      </div>
+    );
+  }
+
+  function renderSeatsAmountSelect() {
+    return (
+      <div className={styles.field}>
+        <label className={styles.label} htmlFor="seatsAmount">
+          Seats Amount:
+        </label>
+        <Select
+          value={seatsAmount}
+          onChange={handleSeatsAmountChange}
+          options={Array.from({ length: 15 - 2 + 1 }, (_, index) => ({
+            value: 2 + index,
+            label: (2 + index).toString(),
+          }))}
+          placeholder="Select Seats Amount"
+          className={styles.input}
+        />
+      </div>
+    );
+  }
+
+  function renderEngineTypeSelect() {
+    return (
+      <div className={styles.field}>
+        <label className={styles.label} htmlFor="engineType">
+          Engine Type:
+        </label>
+        <Select
+          value={engineType}
+          onChange={handleEngineTypeChange}
+          options={["Petrol", "Diesel", "Electric", "Hybrid"].map(
+            (engineOption) => ({
+              value: engineOption,
+              label: engineOption,
+            })
+          )}
+          placeholder="Select Engine Type"
+          className={styles.input}
+        />
+      </div>
+    );
+  }
+
+  function renderTransmissionTypeSelect() {
+    return (
+      <div className={styles.field}>
+        <label className={styles.label} htmlFor="transmissionType">
+          Transmission Type:
+        </label>
+        <Select
+          value={transmissionType}
+          onChange={handleTransmissionTypeChange}
+          options={["Manual", "Auto"].map((transmissionOption) => ({
+            value: transmissionOption,
+            label: transmissionOption,
+          }))}
+          placeholder="Select Transmission Type"
+          className={styles.input}
+        />
+      </div>
+    );
+  }
+function renderDescriptionTextarea() {
   return (
-    <div className={styles.addCarContainer}>
+    <div className={styles.field}>
+      <label className={styles.label} htmlFor="description">
+        Description:
+      </label>
+      <textarea
+        className={styles.textarea}
+        id="description"
+        value={description}
+        onChange={handleDescriptionChange}
+      ></textarea>
+    </div>
+  );
+}
+
+  function renderAddCarForm() {
+    return (
       <form className={styles.form}>
         <h2 className={styles.title}>Add Car</h2>
-        <Button name="X" type="button" style={closeButtonStyle} onClick={toggleVisibility} />
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor="manufacturer">
-            Manufacturer:
-          </label>
-          <Select
-            value={selectedManufacturer}
-            onChange={handleManufacturerChange}
-            options={manufacturers}
-            placeholder="Select Manufacturer"
-            className={styles.input}
-          />
-        </div>
-
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor="model">
-            Model:
-          </label>
-          <Select
-            options={models.map((model) => ({
-              value: model,
-              label: model,
-            }))}
-            value={
-              selectedModel
-                ? { value: selectedModel, label: selectedModel }
-                : null
-            }
-            onChange={handleModelChange}
-            isDisabled={!selectedManufacturer}
-            className={styles.input}
-          />
-        </div>
-
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor="platesNumber">
-            Plates Number:
-          </label>
-          <input
-            className={styles.input}
-            id="platesNumber"
-            type="number"
-            value={platesNumber}
-            onChange={handlePlatesNumberChange}
-          />
-        </div>
-
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor="year">
-            Year:
-          </label>
-          <Select
-            value={year}
-            onChange={handleYearChange}
-            options={Array.from({ length: 2025 - 1990 }, (_, index) => ({
-              value: 1990 + index,
-              label: (1990 + index).toString(),
-            }))}
-            placeholder="Select Year"
-            className={styles.input}
-          />
-        </div>
-
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor="color">
-            Color:
-          </label>
-          <Select
-            value={color}
-            onChange={handleColorChange}
-            options={[
-              "red",
-              "black",
-              "blue",
-              "green",
-              "yellow",
-              "orange",
-              "purple",
-              "pink",
-              "gray",
-              "brown",
-              "white",
-            ].map((colorOption) => ({
-              value: colorOption,
-              label: colorOption,
-            }))}
-            placeholder="Select Color"
-            className={styles.input}
-          />
-        </div>
-
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor="seatsAmount">
-            Seats Amount:
-          </label>
-          <Select
-            value={seatsAmount}
-            onChange={handleSeatsAmountChange}
-            options={Array.from({ length: 15 - 2 + 1 }, (_, index) => ({
-              value: 2 + index,
-              label: (2 + index).toString(),
-            }))}
-            placeholder="Select Seats Amount"
-            className={styles.input}
-          />
-        </div>
-
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor="engineType">
-            Engine Type:
-          </label>
-          <Select
-            value={engineType}
-            onChange={handleEngineTypeChange}
-            options={["Petrol", "Diesel", "Electric", "Hybrid"].map(
-              (engineOption) => ({
-                value: engineOption,
-                label: engineOption,
-              })
-            )}
-            placeholder="Select Engine Type"
-            className={styles.input}
-          />
-        </div>
-
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor="transmissionType">
-            Transmission Type:
-          </label>
-          <Select
-            value={transmissionType}
-            onChange={handleTransmissionTypeChange}
-            options={["Manual", "Auto"].map((transmissionOption) => ({
-              value: transmissionOption,
-              label: transmissionOption,
-            }))}
-            placeholder="Select Transmission Type"
-            className={styles.input}
-          />
-        </div>
-
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor="description">
-            Description:
-          </label>
-          <textarea
-            className={styles.textarea}
-            id="description"
-            value={description}
-            onChange={handleDescriptionChange}
-          ></textarea>
-        </div>
-
+        <Button
+          name="X"
+          type="button"
+          style={closeButtonStyle}
+          onClick={toggleVisibility}
+        />
+        {renderManufacturerSelect()}
+        {renderModelSelect()}
+        {renderPlatesNumberInput()}
+        {renderYearSelect()}
+        {renderColorSelect()}
+        {renderSeatsAmountSelect()}
+        {renderEngineTypeSelect()}
+        {renderTransmissionTypeSelect()}
+        {renderDescriptionTextarea()}
         <div className={styles.field}>
           <label className={styles.label} htmlFor="rentalPricePerDay">
             Rental Price Per Day:
@@ -343,7 +384,6 @@ export default function AddCar({handleAddCarClose}) {
             onChange={handleRentalPricePerDayChange}
           />
         </div>
-
         <div className={styles.field}>
           <label className={styles.label} htmlFor="carimages">
             Choose Car Images:
@@ -357,8 +397,7 @@ export default function AddCar({handleAddCarClose}) {
             className={styles.input}
           />
         </div>
-
-        <div className={styles.field}>
+        <div className={styles.addField}>
           <Button
             onClick={handleSubmit}
             style={btnStyle}
@@ -367,6 +406,8 @@ export default function AddCar({handleAddCarClose}) {
           ></Button>
         </div>
       </form>
-    </div>
-  );
+    );
+  }
+
+  return <div className={styles.addCarContainer}>{renderAddCarForm()}</div>;
 }

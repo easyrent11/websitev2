@@ -5,6 +5,7 @@
   align-items: flex-start; /* Align items to the top */
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
 }
 
 .form {
@@ -17,9 +18,14 @@
   max-width: 30%;
   padding: 2rem;
   margin: 0 auto;
-  border: 3px solid red;
   border-radius: 0.5rem;
 }
+
+.addField{
+  grid-column: 1/ span 2;
+  text-align: center;
+}
+
 
 .title {
   grid-column: 1 / span 2; /* Span both columns */

@@ -13,11 +13,7 @@ export default function AllCarsSection() {
   };
 
   if (!allCars || allCars.length === 0) {
-    return (
-      <div className={styles.container}>
-        <h2 className={styles.noCars}>No cars yet...</h2>
-      </div>
-    );
+    return renderNoCars();
   }
 
   return (
@@ -25,16 +21,22 @@ export default function AllCarsSection() {
       {selectedCar ? (
         <CarView car={selectedCar} />
       ) : (
-        <article className={styles.carList}>
-          {allCars.map((car, index) => (
-            <Car
-              key={index}
-              car={car}
-              handleCarClick={() => handleCarClick(car)}
-            />
-          ))}
-        </article>
+        <article className={styles.carList}>{renderCarList()}</article>
       )}
     </div>
   );
+
+  function renderNoCars() {
+    return (
+      <div className={styles.container}>
+        <h2 className={styles.noCars}>No cars yet...</h2>
+      </div>
+    );
+  }
+
+  function renderCarList() {
+    return allCars.map((car, index) => (
+      <Car key={index} car={car} handleCarClick={() => handleCarClick(car)} />
+    ));
+  }
 }
