@@ -154,6 +154,7 @@ export default function AddCar({ handleAddCarClose }) {
         addCar(carData)
           .then((res) => {
             setSMassege(res.data.message);
+            window.location.href = "/";
           })
           .catch((err) => {
             setEMassege(err.response.data.message);

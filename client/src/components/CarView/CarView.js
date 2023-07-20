@@ -99,6 +99,7 @@ export default function CarView({ car }) {
         // Handle the successful response here
         console.log("Car details updated successfully");
         setEditMode(false); // Exit edit mode
+        window.location.href="/";
       })
       .catch((error) => {
         // Handle the error here
